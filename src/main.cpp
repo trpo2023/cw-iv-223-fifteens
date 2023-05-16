@@ -41,7 +41,8 @@ int main()
             s[n].setTextureRect(IntRect(i * w, j * w, w, w));
             grid[i + 1][j + 1] = n;
         }
-while (window.isOpen())
+
+    while (window.isOpen())
     {
         Event event;
         while (window.pollEvent(event))
@@ -96,5 +97,16 @@ while (window.isOpen())
                     }
                 }
         }
+
+        window.clear(Color::White);
+        for (int i = 0; i < 4; i++)
+            for (int j = 0; j < 4; j++) {
+                n = grid[i + 1][j + 1];
+                s[n].setPosition(i * w, j * w);
+                window.draw(s[n]);
+            }
+        window.display();
     }
+
+    return 0;
 }
