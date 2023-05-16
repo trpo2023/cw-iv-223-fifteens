@@ -41,4 +41,60 @@ int main()
             s[n].setTextureRect(IntRect(i * w, j * w, w, w));
             grid[i + 1][j + 1] = n;
         }
+while (window.isOpen())
+    {
+        Event event;
+        while (window.pollEvent(event))
+        {
+            if (event.type == Event::Closed)
+                window.close();
+
+            if (event.type==Event::MouseButtonPressed)
+                if (event.key.code == Mouse::Left) {
+                    Vector2i pos = Mouse::getPosition(window);
+
+                    int x = pos.x / w + 1;
+                    int y = pos.y / w + 1;
+
+                    int dx = 0;
+                    int dy = 0;
+
+                    int b;
+                    if (a != 2 && a != 5)
+                        b = 16;
+                    else if (a == 2 || a == 5)
+                        b = 4;
+
+                    if (grid[x + 1][y] == b) {
+                        dx = 1;
+                        dy = 0;
+                    }
+                    if (grid[x - 1][y] == b) {
+                        dx = -1;
+                        dy = 0;
+                    }
+                    if (grid[x][y - 1] == b) {
+                        dx = 0;
+                        dy = -1;
+                    }
+                    if (grid[x][y + 1] == b) {
+                        dx = 0;
+                        dy = 1;
+                    }
+
+                    n = grid[x][y];
+                    grid[x][y] = b;
+                    grid[x + dx][y + dy] = n;
+
+                    s[b].move(-dx * w, -dy * w);
+                    float speed = 16;
+                    for (int i = 0; i < w; i += speed) {
+                        s[n].move(speed * dx, speed * dy);
+                        window.draw(s[b]);
+                        window.draw(s[n]);
+                        window.display();
+                    }
+                }
+        }
+    }
 }
