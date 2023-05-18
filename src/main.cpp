@@ -15,19 +15,19 @@ int main()
     switch (a)
     {
     case 1:
-        t.loadFromFile("C:/Users/Данила/Desktop/Paint/Pro/1.png");
+        t.loadFromFile("../Paint/Pro/1.png");
         break;
     case 2:
-        t.loadFromFile("C:/Users/Данила/Desktop/Paint/Pro/2.png");
+        t.loadFromFile("../Paint/Pro/2.png");
         break;
     case 3:
-        t.loadFromFile("C:/Users/Данила/Desktop/Paint/Pro/3.png");
+        t.loadFromFile("../Paint/Pro/3.png");
         break;
     case 4:
-        t.loadFromFile("C:/Users/Данила/Desktop/Paint/Pro/4.png");
+        t.loadFromFile("../Paint/Pro/4.png");
         break;
     case 5:
-        t.loadFromFile("C:/Users/Данила/Desktop/Paint/Pro/5.png");
+        t.loadFromFile("../Paint/Pro/5.png");
         break;
     }
     Sprite s[17];
