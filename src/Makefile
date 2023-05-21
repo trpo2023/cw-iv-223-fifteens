@@ -1,7 +1,3 @@
-XX = g++
-CXXFLAGS = -Wall -std=c++11
-SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
-
 all: main
 
 main: main.o
