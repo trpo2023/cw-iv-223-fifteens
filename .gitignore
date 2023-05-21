@@ -1,3 +1,13 @@
-main.o
-sfml-app
-*exe
+.vscode/
+*.exe
+*.o
+*.log
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+*.a
+*.lib
+*.so
+*.dll
+*.obj
+compile_commands.json
