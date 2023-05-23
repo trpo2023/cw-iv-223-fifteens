@@ -1,7 +1,7 @@
 #include <SFML/Graphics.hpp>
 #include <cassert>
 #include <iostream>
-#include "functions.h"
+#include "../app_lib/functions.h"
 
 using namespace sf;
 

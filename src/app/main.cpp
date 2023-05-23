@@ -1,4 +1,4 @@
-#include "functions.h"
+#include "../app_lib/functions.h"
 #include <SFML/Graphics.hpp>
 #include <time.h>
 
