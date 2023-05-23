@@ -13,6 +13,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Setup libs
+        run: sudo apt-get install -y libsfml-dev
+
       - name: Checkout code
         uses: actions/checkout@v2
 
