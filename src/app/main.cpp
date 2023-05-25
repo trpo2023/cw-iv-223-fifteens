@@ -14,19 +14,19 @@ int main()
     switch (a)
     {
     case 1:
-        loadTexture(t, "../Paint/Pro/1.png");
+        loadTexture(t, "Paint/Pro/1.png");
         break;
     case 2:
-        loadTexture(t, "../Paint/Pro/2.png");
+        loadTexture(t, "Paint/Pro/2.png");
         break;
     case 3:
-        loadTexture(t, "../Paint/Pro/3.png");
+        loadTexture(t, "Paint/Pro/3.png");
         break;
     case 4:
-        loadTexture(t, "../Paint/Pro/4.png");
+        loadTexture(t, "Paint/Pro/4.png");
         break;
     case 5:
-        loadTexture(t, "../Paint/Pro/5.png");
+        loadTexture(t, "Paint/Pro/5.png");
         break;
     }
 

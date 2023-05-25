@@ -9,7 +9,7 @@ using namespace sf;
 void testLoadTexture()
 {
     Texture t;
-    std::string filename = "../Paint/Pro/1.png";
+    std::string filename = "Paint/Pro/1.png";
     loadTexture(t, filename);
 
     // Проверяем, успешно ли загрузилась текстура
