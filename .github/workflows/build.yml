@@ -1,32 +1,27 @@
-name: Build and Test
+name: Build
 
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    branches:
-      - main
+on: push
 
 jobs:
-  build-and-test:
+  build:
     runs-on: ubuntu-20.04
 
     steps:
+      - name: Checkout repositories
+        uses: actions/checkout@v2
+
       - name: Setup libs
         run: |
           sudo apt-get install -y libsfml-dev
           sudo apt-get install clang-format
 
-      - name: Checkout code
-        uses: actions/checkout@v2
-        
       - name: Check codestyle
         run: |
-          git ls-files *.{cpp,h} | xargs clang-format -i --verbose && git diff --exit-code
+          git ls-files *.{c,h} | xargs clang-format -i --verbose
+          git diff --exit-code
 
-      - name: Build project
-        run: make all
-
-      - name: Run tests
-        run: make run_tests
+      - name: Build application
+        run: make
+        
+      - name: Build tests
+        run: make tests

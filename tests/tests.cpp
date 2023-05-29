@@ -1,7 +1,7 @@
-#include "../src/app_lib/functions.h"
 #include <SFML/Graphics.hpp>
 #include <cassert>
 #include <iostream>
+#include "../src/app_lib/functions.h"
 
 using namespace sf;
 
@@ -28,7 +28,7 @@ void testDrawSprites()
     // Создаем окно и спрайты для тестирования
     RenderWindow window(VideoMode(512, 512), "Tag game!");
     Sprite s[17];
-    int grid[6][6] = {0};
+    int grid[6][6] = { 0 };
     Texture t;
     int w = 128;
     initializeSprites(s, t, grid);

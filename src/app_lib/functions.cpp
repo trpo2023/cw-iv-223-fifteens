@@ -1,12 +1,12 @@
 #include "functions.h"
-#include <SFML/Graphics.hpp>
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 void loadTexture(sf::Texture& t, const std::string& filename)
 {
-    if (!t.loadFromFile(filename)) {
-        std::cerr << "Failed to load texture from file: " << filename
-                  << std::endl;
+    if (!t.loadFromFile(filename))
+    {
+        std::cerr << "Failed to load texture from file: " << filename << std::endl;
         exit(1);
     }
 }
@@ -15,7 +15,8 @@ void initializeSprites(sf::Sprite s[], sf::Texture& t, int grid[][6])
 {
     int w = 128;
     int n = 0;
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++)
+    {
         for (int j = 0; j < 4; j++) {
             n++;
             s[n].setTexture(t);
@@ -25,13 +26,7 @@ void initializeSprites(sf::Sprite s[], sf::Texture& t, int grid[][6])
     }
 }
 
-void handleMouseClick(
-        sf::Event::MouseButtonEvent mouseEvent,
-        sf::RenderWindow& window,
-        int grid[][6],
-        sf::Sprite s[],
-        int a,
-        int w)
+void handleMouseClick(sf::Event::MouseButtonEvent mouseEvent, sf::RenderWindow& window, int grid[][6], sf::Sprite s[], int a, int w)
 {
     sf::Vector2i pos = sf::Mouse::getPosition(window);
 
@@ -80,7 +75,8 @@ void handleMouseClick(
 
 void drawSprites(sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w)
 {
-    for (int i = 0; i < 4; i++) {
+    for (int i = 0; i < 4; i++)
+    {
         for (int j = 0; j < 4; j++) {
             int n = grid[i + 1][j + 1];
             s[n].setPosition(i * w, j * w);

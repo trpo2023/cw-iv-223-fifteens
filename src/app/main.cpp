@@ -11,7 +11,8 @@ int main()
 
     sf::Texture t;
     int a = rand() % 5 + 1;
-    switch (a) {
+    switch (a)
+    {
     case 1:
         loadTexture(t, "Paint/Pro/1.png");
         break;
@@ -31,18 +32,22 @@ int main()
 
     sf::Sprite s[17];
     int w = 128;
-    int grid[6][6] = {0};
+    int grid[6][6] = { 0 };
 
     initializeSprites(s, t, grid);
 
-    while (window.isOpen()) {
+    while (window.isOpen())
+    {
         sf::Event event;
-        while (window.pollEvent(event)) {
+        while (window.pollEvent(event))
+        {
             if (event.type == sf::Event::Closed)
                 window.close();
 
-            if (event.type == sf::Event::MouseButtonPressed) {
-                if (event.mouseButton.button == sf::Mouse::Left) {
+            if (event.type == sf::Event::MouseButtonPressed)
+            {
+                if (event.mouseButton.button == sf::Mouse::Left)
+                {
                     handleMouseClick(event.mouseButton, window, grid, s, a, w);
                 }
             }
