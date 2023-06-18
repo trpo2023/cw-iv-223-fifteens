@@ -19,7 +19,7 @@ void testLoadTexture()
     assert(t.getSize().x == 512);
     assert(t.getSize().y == 512);
 
-    std::cout << "TEST: loadTexture SUCCESSFULLY PASSED" << std::endl;
+    std::cout << "TEST 1/2 GRAPHIC_TEST:loadTexture [OK]" << std::endl;
 }
 
 // Тестирование функции drawSprites
@@ -38,7 +38,7 @@ void testDrawSprites()
 
     // Проверяем, что спрайты были отрисованы в окне
 
-    std::cout << "TEST: drawSprites SUCCESSFULLY PASSED" << std::endl;
+    std::cout << "TEST 2/2 GRAPHIC_TEST:drawSprites [OK]" << std::endl;
 }
 
 int main()
