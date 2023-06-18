@@ -28,7 +28,7 @@ $(OBJ_DIR)/tests.o: tests/tests.cpp
 	$(CC) $(CXXFLAGS) -c tests/tests.cpp -o $(OBJ_DIR)/tests.o
 
 run_tests: $(BIN_DIR)/tests
-	./$(BIN_DIR)/tests
+	xvfb-run -a ./$(BIN_DIR)/tests
 
 run: $(BIN_DIR)/game
 	./$(BIN_DIR)/game
