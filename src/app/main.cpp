@@ -1,4 +1,5 @@
 #include "../app_lib/functions.h"
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <time.h>
 
@@ -56,7 +57,27 @@ int main()
         window.clear(sf::Color::White);
         drawSprites(window, s, grid, w);
         window.display();
+
+        // Проверяем, находятся ли плитки в правильном порядке
+        bool isGameOver = true;
+        for (int i = 1; i <= 4; ++i) {
+            for (int j = 1; j <= 4; ++j) {
+                if (grid[i][j] != i + 4 * (j - 1)) {
+                    isGameOver = false;
+                    break;
+                }
+            }
+            if (!isGameOver) {
+                break;
+            }
+        }
+
+        // Если игра завершена, закрываем окно
+        if (isGameOver) {
+            window.close();
+        }
     }
 
     return 0;
 }
+
