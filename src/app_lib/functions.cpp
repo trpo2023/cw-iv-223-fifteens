@@ -73,6 +73,51 @@ void handleMouseClick(sf::Event::MouseButtonEvent mouseEvent, sf::RenderWindow& 
     }
 }
 
+void handleKeyPress(sf::Keyboard::Key key, int grid[][6], sf::Sprite s[], int &a, int w)
+{
+    int dx = 0;
+    int dy = 0;
+
+    switch (key) {
+        case sf::Keyboard::Up:
+            dy = -1;
+            break;
+        case sf::Keyboard::Down:
+            dy = 1;
+            break;
+        case sf::Keyboard::Left:
+            dx = -1;
+            break;
+        case sf::Keyboard::Right:
+            dx = 1;
+            break;
+        default:
+            return;
+    }
+
+    int x, y;
+    for (int i = 1; i <= 4; ++i) {
+        for (int j = 1; j <= 4; ++j) {
+            if (grid[i][j] == a) {
+                x = i;
+                y = j;
+                break;
+            }
+        }
+    }
+
+    int new_x = x + dx;
+    int new_y = y + dy;
+
+    if (new_x >= 1 && new_x <= 4 && new_y >= 1 && new_y <= 4) {
+        int b = grid[new_x][new_y];
+        grid[new_x][new_y] = a;
+        grid[x][y] = b;
+
+        s[a].move(w * dx, w * dy);
+    }
+}
+
 void drawSprites(sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w)
 {
     for (int i = 0; i < 4; i++)
@@ -82,5 +127,20 @@ void drawSprites(sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w)
             s[n].setPosition(i * w, j * w);
             window.draw(s[n]);
         }
+    }
+}
+
+void shuffleTiles(int grid[][6])
+{
+    for (int i = 0; i < 100; ++i) // Производим 100 случайных перемещений плиток
+    {
+        int x1 = rand() % 4 + 1;
+        int y1 = rand() % 4 + 1;
+        int x2 = rand() % 4 + 1;
+        int y2 = rand() % 4 + 1;
+
+        int temp = grid[x1][y1];
+        grid[x1][y1] = grid[x2][y2];
+        grid[x2][y2] = temp;
     }
 }
