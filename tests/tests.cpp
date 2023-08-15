@@ -19,7 +19,7 @@ void testLoadTexture()
     assert(t.getSize().x == 512);
     assert(t.getSize().y == 512);
 
-    std::cout << "TEST 1/4 GRAPHIC_TEST:loadTexture [OK]" << std::endl;
+    std::cout << "TEST 1/5 GRAPHIC_TEST:loadTexture [OK]" << std::endl;
 }
 
 // Тестирование функции initializeSprites
@@ -37,7 +37,7 @@ void testInitializeSprites()
         }
     }
 
-    std::cout << "TEST 2/4 GRAPHIC_TEST:initializeSprites [OK]" << std::endl;
+    std::cout << "TEST 2/5 GRAPHIC_TEST:initializeSprites [OK]" << std::endl;
 }
 
 // Тестирование завершения игры
@@ -66,7 +66,7 @@ void testGameCompletion()
     // Проверяем, что игра успешно завершена
     assert(isGameOver);
 
-    std::cout << "TEST 3/4 LOGIC_TEST:gameCompletion [OK]" << std::endl;
+    std::cout << "TEST 3/5 LOGIC_TEST:gameCompletion [OK]" << std::endl;
 }
 
 // Тестирование алгоритма перемешивания плиток
@@ -108,7 +108,31 @@ void testTileShuffling()
     // Проверяем, что плитки были перемешаны
     assert(isShuffled);
 
-    std::cout << "TEST 4/4 LOGIC_TEST:tileShuffling [OK]" << std::endl;
+    std::cout << "TEST 4/5 LOGIC_TEST:tileShuffling [OK]" << std::endl;
+}
+
+// Тестирование для проверки поведения игры в крайних случаях, таких как перемещение плиток в угловых клетках поля.
+void testCornerTileMoveTopLeft()
+{
+    RenderWindow window(VideoMode(512, 512), "Tag game!");
+    Texture t;
+    int a = 1;
+    int w = 128;
+    Sprite s[17];
+    int grid[6][6] = { 0 };
+    initializeSprites(s, t, grid);
+
+    // Перемещаем плитку из угловой клетки
+    sf::Event::MouseButtonEvent event;
+    event.x = 0;
+    event.y = 0;
+    event.button = sf::Mouse::Left;
+    handleMouseClick(event, window, grid, s, a, w);
+
+    // Проверяем, что плитка переместилась в соседнюю клетку
+    assert(grid[1][1] == a);
+
+    std::cout << "TEST 5/5 LOGIC_TEST:cornerTileMove [OK]" << std::endl;
 }
 
 int main()
@@ -116,7 +140,8 @@ int main()
     testLoadTexture();
     testInitializeSprites();
     testGameCompletion();
-    testTileShuffling(); 
+    testTileShuffling();
+    testCornerTileMoveTopLeft();
 
     return 0;
 }
