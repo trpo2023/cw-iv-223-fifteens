@@ -31,7 +31,7 @@ run: $(BIN_DIR)/game
 	./$(BIN_DIR)/game
 
 run_tests: $(BIN_DIR)/tests
-	./$(BIN_DIR)/tests
+	xvfb-run -a ./$(BIN_DIR)/tests
 
 clean:
 	rm -rf $(OBJ_DIR) $(BIN_DIR)
