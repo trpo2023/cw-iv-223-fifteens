@@ -1,4 +1,4 @@
-name: Build
+name: Build and Test
 
 on: push
 
@@ -14,6 +14,12 @@ jobs:
         run: |
           sudo apt-get install -y libsfml-dev
           sudo apt-get install clang-format
+          sudo apt-get install xvfb  # Устанавливаем Xvfb
+
+      - name: Start Xvfb
+        run: |
+          Xvfb :99 -ac &
+          export DISPLAY=:99  # Устанавливаем переменную DISPLAY для использования Xvfb
 
       - name: Check codestyle
         run: |
