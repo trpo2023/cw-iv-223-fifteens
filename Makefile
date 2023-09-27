@@ -1,7 +1,6 @@
 CC = g++
 CXXFLAGS = -std=c++11 -I../lib/thirdparty # Добавьте -I с указанием пути к ctest.h
 SFML_LIBS = -lsfml-graphics -lsfml-window -lsfml-system
-GTEST_LIBS = -lgtest -lgtest_main
 
 OBJ_DIR = obj
 BIN_DIR = bin
@@ -22,7 +21,7 @@ $(OBJ_DIR)/functions.o: src/app_lib/functions.cpp
 
 tests: $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o
 	mkdir -p $(BIN_DIR)
-	$(CC) $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o -o $(BIN_DIR)/tests $(SFML_LIBS) $(GTEST_LIBS)
+	$(CC) $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o -o $(BIN_DIR)/tests $(SFML_LIBS) 
 
 $(OBJ_DIR)/tests.o: tests/tests.cpp
 	mkdir -p $(OBJ_DIR)
