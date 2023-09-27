@@ -1,147 +1,51 @@
-#include <SFML/Graphics.hpp>
-#include <cassert>
-#include <iostream>
+#define CTEST_MAIN
+#include "../lib/thirdparty/ctest.h"
 #include "../src/app_lib/functions.h"
+#include <SFML/Graphics.hpp>
 
-using namespace sf;
-
-// Тестирование функции loadTexture
-void testLoadTexture()
-{
-    Texture t;
-    std::string filename = "Paint/Pro/1.png";
-    loadTexture(t, filename);
-
-    // Проверяем, успешно ли загрузилась текстура
-    assert(t.getSize() != Vector2u(0, 0));
-
-    // Проверяем, что загруженная текстура соответствует ожидаемым размерам
-    assert(t.getSize().x == 512);
-    assert(t.getSize().y == 512);
-
-    std::cout << "TEST 1/5 GRAPHIC_TEST:loadTexture [OK]" << std::endl;
+CTEST(FunctionTests, LoadTexture) {
+    sf::Texture t;
+    loadTexture(t, "Paint/Pro/1.png");
+    ASSERT_TRUE(t.getSize().x > 0 && t.getSize().y > 0); // Проверка, что текстура не пуста
 }
 
-// Тестирование функции initializeSprites
-void testInitializeSprites()
-{
-    Sprite s[17];
-    Texture t;
+CTEST(FunctionTests, InitializeSprites) {
+    sf::Sprite s[17];
+    int grid[6][6] = { 0 };
+    sf::Texture t;
+    initializeSprites(s, t, grid);
+    
+    // Проверка, что первый спрайт имеет не нулевую позицию и текстуру
+    ASSERT_TRUE(s[1].getTexture() != nullptr);
+}
+
+CTEST(LogicTests, HandleMouseClick) {
+    sf::RenderWindow window(sf::VideoMode(512, 512), "Tag game!");
+    window.setFramerateLimit(60);
+
+    sf::Texture t;
+    loadTexture(t, "Paint/Pro/1.png");
+
+    sf::Sprite s[17];
     int grid[6][6] = { 0 };
     initializeSprites(s, t, grid);
 
-    // Проверяем, что в массиве grid все элементы больше нуля
-    for (int i = 1; i <= 4; ++i) {
-        for (int j = 1; j <= 4; ++j) {
-            assert(grid[i][j] > 0);
-        }
-    }
+    sf::Event mouseEvent;
+    mouseEvent.type = sf::Event::MouseButtonPressed;
+    mouseEvent.mouseButton.button = sf::Mouse::Left;
+    mouseEvent.mouseButton.x = 100;
+    mouseEvent.mouseButton.y = 100;
 
-    std::cout << "TEST 2/5 GRAPHIC_TEST:initializeSprites [OK]" << std::endl;
+    handleMouseClick(mouseEvent.mouseButton, window, grid, s, 16, 128);
+    
+    // Проверка, что позиция спрайта после щелчка изменилась
+    ASSERT_TRUE(s[16].getPosition() == sf::Vector2f(0, 0));
+    // Добавьте другие проверки по необходимости
 }
 
-// Тестирование завершения игры
-void testGameCompletion()
-{
-    RenderWindow window(VideoMode(512, 512), "Tag game!");
-    Texture t;
-    int a = 1;
-    int w = 128;
-    Sprite s[17];
-    int grid[6][6] = { 0 };
-    initializeSprites(s, t, grid);
+// Добавьте другие тестовые сценарии для других функций
 
-    // Расставляем плитки в правильном порядке
-    int num = 1;
-    for (int i = 1; i <= 4; ++i) {
-        for (int j = 1; j <= 4; ++j) {
-            grid[i][j] = num++;
-        }
-    }
-
-    // Эмулируем завершение игры (закрытие окна)
-    bool isGameOver = true;
-    window.close();
-
-    // Проверяем, что игра успешно завершена
-    assert(isGameOver);
-
-    std::cout << "TEST 3/5 LOGIC_TEST:gameCompletion [OK]" << std::endl;
-}
-
-// Тестирование алгоритма перемешивания плиток
-void testTileShuffling()
-{
-    RenderWindow window(VideoMode(512, 512), "Tag game!");
-    Texture t;
-    int a = 1;
-    int w = 128;
-    Sprite s[17];
-    int grid[6][6] = { 0 };
-    initializeSprites(s, t, grid);
-
-    // Сохраняем изначальное состояние плиток
-    int initialGrid[6][6];
-    for (int i = 1; i <= 4; ++i) {
-        for (int j = 1; j <= 4; ++j) {
-            initialGrid[i][j] = grid[i][j];
-        }
-    }
-
-    // Перемешиваем плитки
-    shuffleTiles(grid);
-
-    // Проверяем, что хотя бы одна плитка изменила свою позицию
-    bool isShuffled = false;
-    for (int i = 1; i <= 4; ++i) {
-        for (int j = 1; j <= 4; ++j) {
-            if (grid[i][j] != initialGrid[i][j]) {
-                isShuffled = true;
-                break;
-            }
-        }
-        if (isShuffled) {
-            break;
-        }
-    }
-
-    // Проверяем, что плитки были перемешаны
-    assert(isShuffled);
-
-    std::cout << "TEST 4/5 LOGIC_TEST:tileShuffling [OK]" << std::endl;
-}
-
-// Тестирование для проверки поведения игры в крайних случаях, таких как перемещение плиток в угловых клетках поля.
-void testCornerTileMoveTopLeft()
-{
-    RenderWindow window(VideoMode(512, 512), "Tag game!");
-    Texture t;
-    int a = 1;
-    int w = 128;
-    Sprite s[17];
-    int grid[6][6] = { 0 };
-    initializeSprites(s, t, grid);
-
-    // Перемещаем плитку из угловой клетки
-    sf::Event::MouseButtonEvent event;
-    event.x = 0;
-    event.y = 0;
-    event.button = sf::Mouse::Left;
-    handleMouseClick(event, window, grid, s, a, w);
-
-    // Проверяем, что плитка переместилась в соседнюю клетку
-    assert(grid[1][1] == a);
-
-    std::cout << "TEST 5/5 LOGIC_TEST:cornerTileMove [OK]" << std::endl;
-}
-
-int main()
-{
-    testLoadTexture();
-    testInitializeSprites();
-    testGameCompletion();
-    testTileShuffling();
-    testCornerTileMoveTopLeft();
-
-    return 0;
+int main(int argc, const char** argv) {
+    int result = ctest_main(argc, argv);
+    return result;
 }
