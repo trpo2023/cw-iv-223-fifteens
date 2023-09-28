@@ -130,17 +130,17 @@ void drawSprites(sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w)
     }
 }
 
-void shuffleTiles(int grid[][6])
-{
-    for (int i = 0; i < 100; ++i) // Производим 100 случайных перемещений плиток
-    {
-        int x1 = rand() % 4 + 1;
-        int y1 = rand() % 4 + 1;
-        int x2 = rand() % 4 + 1;
-        int y2 = rand() % 4 + 1;
-
-        int temp = grid[x1][y1];
-        grid[x1][y1] = grid[x2][y2];
-        grid[x2][y2] = temp;
+void shuffleTiles(int grid[][6]) {
+    int n = 16;
+    while (n > 1) {
+        int i = rand() % 4 + 1;
+        int j = rand() % 4 + 1;
+        int x = grid[i][j];
+        int ii = rand() % 4 + 1;
+        int jj = rand() % 4 + 1;
+        grid[i][j] = grid[ii][jj];
+        grid[ii][jj] = x;
+        n--;
     }
 }
+
