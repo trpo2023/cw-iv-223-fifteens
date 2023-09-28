@@ -13,8 +13,8 @@ void handleMouseClick(
         int a,
         int w);
 void handleKeyPress(
-	sf::Keyboard::Key key, int grid[][6], sf::Sprite s[], int& a, int w);
+        sf::Keyboard::Key key, int grid[][6], sf::Sprite s[], int& a, int w);
 void drawSprites(
-	sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w);
+        sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w);
 void shuffleTiles(int grid[][6]);
 #endif
