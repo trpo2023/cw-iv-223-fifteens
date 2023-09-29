@@ -103,7 +103,6 @@ CTEST(LogicTests, HandleKeyPress) {
         originalX = newX;
         originalY = newY;
     }
-    // Добавьте другие проверки по необходимости
 }
 
 int main(int argc, const char** argv) {
