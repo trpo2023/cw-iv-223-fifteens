@@ -22,6 +22,7 @@ $(OBJ_DIR)/functions.o: src/app_lib/functions.cpp
 tests: $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o
 	mkdir -p $(BIN_DIR)
 	$(CC) $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o -o $(BIN_DIR)/tests $(SFML_LIBS) 
+	ar rcs lib/mylib.a $(OBJ_DIR)/functions.o
 
 $(OBJ_DIR)/tests.o: tests/tests.cpp
 	mkdir -p $(OBJ_DIR)
