@@ -1,12 +1,12 @@
 #include "functions.h"
-#include <iostream>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 void loadTexture(sf::Texture& t, const std::string& filename)
 {
-    if (!t.loadFromFile(filename))
-    {
-        std::cerr << "Failed to load texture from file: " << filename << std::endl;
+    if (!t.loadFromFile(filename)) {
+        std::cerr << "Failed to load texture from file: " << filename
+                  << std::endl;
         exit(1);
     }
 }
@@ -15,8 +15,7 @@ void initializeSprites(sf::Sprite s[], sf::Texture& t, int grid[][6])
 {
     int w = 128;
     int n = 0;
-    for (int i = 0; i < 4; i++)
-    {
+    for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             n++;
             s[n].setTexture(t);
@@ -26,7 +25,13 @@ void initializeSprites(sf::Sprite s[], sf::Texture& t, int grid[][6])
     }
 }
 
-void handleMouseClick(sf::Event::MouseButtonEvent mouseEvent, sf::RenderWindow& window, int grid[][6], sf::Sprite s[], int a, int w)
+void handleMouseClick(
+        sf::Event::MouseButtonEvent mouseEvent,
+        sf::RenderWindow& window,
+        int grid[][6],
+        sf::Sprite s[],
+        int a,
+        int w)
 {
     sf::Vector2i pos = sf::Mouse::getPosition(window);
 
@@ -73,26 +78,27 @@ void handleMouseClick(sf::Event::MouseButtonEvent mouseEvent, sf::RenderWindow& 
     }
 }
 
-void handleKeyPress(sf::Keyboard::Key key, int grid[][6], sf::Sprite s[], int &a, int w)
+void handleKeyPress(
+        sf::Keyboard::Key key, int grid[][6], sf::Sprite s[], int& a, int w)
 {
     int dx = 0;
     int dy = 0;
 
     switch (key) {
-        case sf::Keyboard::Up:
-            dy = -1;
-            break;
-        case sf::Keyboard::Down:
-            dy = 1;
-            break;
-        case sf::Keyboard::Left:
-            dx = -1;
-            break;
-        case sf::Keyboard::Right:
-            dx = 1;
-            break;
-        default:
-            return;
+    case sf::Keyboard::Up:
+        dy = -1;
+        break;
+    case sf::Keyboard::Down:
+        dy = 1;
+        break;
+    case sf::Keyboard::Left:
+        dx = -1;
+        break;
+    case sf::Keyboard::Right:
+        dx = 1;
+        break;
+    default:
+        return;
     }
 
     int x, y;
@@ -120,8 +126,7 @@ void handleKeyPress(sf::Keyboard::Key key, int grid[][6], sf::Sprite s[], int &a
 
 void drawSprites(sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w)
 {
-    for (int i = 0; i < 4; i++)
-    {
+    for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
             int n = grid[i + 1][j + 1];
             s[n].setPosition(i * w, j * w);
@@ -130,7 +135,8 @@ void drawSprites(sf::RenderWindow& window, sf::Sprite s[], int grid[][6], int w)
     }
 }
 
-void shuffleTiles(int grid[][6]) {
+void shuffleTiles(int grid[][6])
+{
     int n = 16;
     while (n > 1) {
         int i = rand() % 4 + 1;
@@ -143,4 +149,3 @@ void shuffleTiles(int grid[][6]) {
         n--;
     }
 }
-
