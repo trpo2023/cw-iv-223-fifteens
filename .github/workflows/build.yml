@@ -17,7 +17,7 @@ jobs:
 
       - name: Check codestyle
         run: |
-          git ls-files *.{cpp,h} | xargs clang-format -i --verbose
+          clang-format -i --verbose **/*.{cpp,h}
           git diff --exit-code
 
       - name: Build application
