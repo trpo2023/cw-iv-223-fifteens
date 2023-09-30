@@ -10,6 +10,7 @@ all: $(BIN_DIR)/game
 $(BIN_DIR)/game: $(OBJ_DIR)/main.o $(OBJ_DIR)/functions.o
 	mkdir -p $(BIN_DIR)
 	$(CC) $(OBJ_DIR)/main.o $(OBJ_DIR)/functions.o -o $(BIN_DIR)/game $(SFML_LIBS)
+	ar rcs lib/mylib.a $(OBJ_DIR)/functions.o
 
 $(OBJ_DIR)/main.o: src/app/main.cpp
 	mkdir -p $(OBJ_DIR)
@@ -21,8 +22,7 @@ $(OBJ_DIR)/functions.o: src/app_lib/functions.cpp
 
 tests: $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o
 	mkdir -p $(BIN_DIR)
-	$(CC) $(OBJ_DIR)/tests.o $(OBJ_DIR)/functions.o -o $(BIN_DIR)/tests $(SFML_LIBS) 
-	ar rcs lib/mylib.a $(OBJ_DIR)/functions.o
+	$(CC) $(OBJ_DIR)/tests.o lib/mylib.a -o $(BIN_DIR)/tests $(SFML_LIBS) 
 
 $(OBJ_DIR)/tests.o: tests/tests.cpp
 	mkdir -p $(OBJ_DIR)
@@ -35,4 +35,4 @@ run_tests: $(BIN_DIR)/tests
 	xvfb-run -a ./$(BIN_DIR)/tests
 
 clean:
-	rm -rf $(OBJ_DIR) $(BIN_DIR)
+	rm -rf $(OBJ_DIR) $(BIN_DIR) lib/mylib.a
